@@ -1,0 +1,14 @@
+upstream openerp {
+    server 127.0.0.1:8069 weight=1 fail_timeout=900s;
+}
+
+server {
+    listen 80;
+    server_name    <%= node["openerp"]["dns"] %>;
+
+    client_max_body_size 100M;
+
+    location / {
+        proxy_pass  http://openerp;
+    }
+}

@@ -1,0 +1,5 @@
+default["openerp"]["version"] = "openerp-7.0-20130118-002240"
+default["openerp"]["db_user"] = "openerp"
+default["openerp"]["db_password"] = "unbreakable"
+default["openerp"]["ip"] = "127.0.0.1"
+default["openerp"]["dns"] = "openerp.clubit.be"

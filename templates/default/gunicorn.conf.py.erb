@@ -1,0 +1,28 @@
+import openerp
+
+if openerp.release.major_version == '6.1':
+    on_starting = openerp.wsgi.core.on_starting
+    try:
+      when_ready = openerp.wsgi.core.when_ready
+    except AttributeError: # not in current head of 6.1
+      pass
+    pre_request = openerp.wsgi.core.pre_request
+    post_request = openerp.wsgi.core.post_request
+
+timeout = 900
+max_requests = 2000
+
+openerp.conf.server_wide_modules = ['web']
+conf = openerp.tools.config
+conf['addons_path'] = '/opt/openerp/server/openerp/addons'
+conf['db_host'] = 'localhost'
+conf['db_user'] = '<%= node["openerp"]["db_user"] %>'
+conf['db_port'] = 5432
+conf['db_password'] = '<%= node["openerp"]["db_password"] %>'
+conf['logfile'] = '/var/log/openerp/openerp-server.log'
+# DEBUG=10, DEBUG_RPC=8, DEBUG_RPC_ANSWER=6, DEBUG_SQL=5, INFO=20, WARNING=30, ERROR=40, CRITICAL=50
+# conf['log_level'] = 20
+
+bind = '<%= node["openerp"]["ip"] %>:8069'
+pidfile = 'gunicorn_openerp' + '.pid'
+workers = 4

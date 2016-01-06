@@ -1,0 +1,11 @@
+[options]
+; This is the password that allows database operations:
+; admin_passwd = admin
+db_host = False
+db_port = False
+db_user = <%= node["openerp"]["db_user"] %>
+db_password = <%= node["openerp"]["db_password"] %>
+logfile = /var/log/openerp/openerp-server.log
+; log_level = debug_rpc_answer
+xmlrpc_interface = <%= node["openerp"]["ip"] %>
+netrpc_interface = <%= node["openerp"]["ip"] %>
